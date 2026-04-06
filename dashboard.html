@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Quantity Measurement</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand">
+      <span class="header-icon">📐</span>
+      <span class="header-title">Quantity Measurement</span>
+    </div>
+    <div class="header-right">
+      <a href="history.html" class="btn btn-ghost btn-sm">📋 History</a>
+      <span id="user-info" class="user-badge"></span>
+      <button class="btn btn-ghost btn-sm" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- Guest banner -->
+  <div id="guest-banner" class="guest-banner" style="display:none">
+    <span>👤 You're in Guest mode — calculations run locally. <a href="index.html">Login</a> to save history.</span>
+  </div>
+
+  <!-- Main -->
+  <main class="dashboard">
+
+    <!-- Measurement type selector -->
+    <section class="section">
+      <p class="section-label">Measurement Type</p>
+      <div id="type-selector" class="type-selector"></div>
+    </section>
+
+    <!-- Operation selector -->
+    <section class="section">
+      <p class="section-label">Operation</p>
+      <div id="op-selector" class="op-selector"></div>
+    </section>
+
+    <!-- Calculator card -->
+    <section class="section">
+      <div class="calc-card card">
+        <form id="calc-form">
+          <div id="calc-form-body"></div>
+          <div class="calc-actions">
+            <button type="submit" id="calc-btn" class="btn btn-primary">
+              <span id="calc-spinner" class="spinner"></span>
+              Calculate
+            </button>
+            <button type="button" class="btn btn-ghost" onclick="resetForm()">Reset</button>
+          </div>
+        </form>
+
+        <!-- Result -->
+        <div id="result-box" class="result-box">
+          <div class="result-label">Result</div>
+          <div id="result-value" class="result-value"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/api.js?v=2"></script>
+  <script src="js/dashboard.js?v=2"></script>
+  <script>
+    function resetForm() {
+      document.getElementById('calc-form').reset();
+      document.getElementById('result-box').className = 'result-box';
+    }
+  </script>
+</body>
+</html>
