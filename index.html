@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantity Measurement App</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+  <div class="login-page">
+
+    <!-- Left panel -->
+    <div class="login-left">
+      <div class="brand">
+        <div class="brand-icon">📐</div>
+        <h1>Quantity<br/>Measurement</h1>
+        <p>Convert, compare and calculate across Length, Volume, Weight &amp; Temperature with precision.</p>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item"><span>📏</span> Length — Feet, Inches, Yards, Centimeters</div>
+        <div class="feature-item"><span>🧪</span> Volume — Litre, Millilitre, Gallon</div>
+        <div class="feature-item"><span>⚖️</span> Weight — Kilogram, Gram, Pound</div>
+        <div class="feature-item"><span>🌡️</span> Temperature — Celsius, Fahrenheit</div>
+      </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="login-right">
+
+      <!-- Choice screen -->
+      <div id="choice-screen" class="auth-card">
+        <div class="auth-header">
+          <h2>Welcome</h2>
+          <p>How would you like to continue?</p>
+        </div>
+
+        <div class="choice-options">
+          <button class="choice-btn choice-guest" onclick="continueAsGuest()">
+            <div class="choice-icon">👤</div>
+            <div class="choice-text">
+              <strong>Continue as Guest</strong>
+              <span>Use the app locally without an account</span>
+            </div>
+            <span class="choice-arrow">→</span>
+          </button>
+
+          <div class="choice-divider"><span>or</span></div>
+
+          <button class="choice-btn choice-login" onclick="showLoginForm()">
+            <div class="choice-icon">🔐</div>
+            <div class="choice-text">
+              <strong>Login / Register</strong>
+              <span>Save history &amp; sync across devices</span>
+            </div>
+            <span class="choice-arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Login form -->
+      <div id="login-form-section" class="auth-card" style="display:none">
+        <div class="auth-header">
+          <button class="back-btn" onclick="showChoiceScreen()">← Back</button>
+          <h2>Login</h2>
+          <p>Sign in to your account</p>
+        </div>
+
+        <div id="login-alert" class="alert alert-error"></div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="login-email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required />
+          </div>
+          <button type="submit" id="login-btn" class="btn btn-primary btn-full">
+            <span id="login-spinner" class="spinner"></span>
+            Sign In
+          </button>
+        </form>
+
+        <div class="auth-divider">
+          <span>or</span>
+        </div>
+
+        <button class="btn btn-google btn-full" onclick="loginWithGoogle()">
+          <svg class="google-icon" width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <p class="auth-switch">
+          Don't have an account?
+          <a href="#" onclick="showRegisterForm()">Create one</a>
+        </p>
+      </div>
+
+      <!-- Register form -->
+      <div id="register-form-section" class="auth-card" style="display:none">
+        <div class="auth-header">
+          <button class="back-btn" onclick="showLoginForm()">← Back</button>
+          <h2>Register</h2>
+          <p>Create a new account</p>
+        </div>
+
+        <div id="register-alert" class="alert alert-error"></div>
+
+        <form id="register-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="reg-firstname" placeholder="John" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="reg-lastname" placeholder="Doe" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="reg-email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="reg-password" placeholder="Min. 6 characters" required />
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="reg-confirm" placeholder="Repeat password" required />
+          </div>
+          <button type="submit" id="register-btn" class="btn btn-primary btn-full">
+            <span id="register-spinner" class="spinner"></span>
+            Create Account
+          </button>
+        </form>
+
+        <div class="auth-divider">
+          <span>or</span>
+        </div>
+
+        <button class="btn btn-google btn-full" onclick="loginWithGoogle()">
+          <svg class="google-icon" width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Sign up with Google
+        </button>
+
+        <p class="auth-switch">
+          Already have an account?
+          <a href="#" onclick="showLoginForm()">Sign in</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/api.js?v=2"></script>
+  <script src="js/auth.js?v=2"></script>
+</body>
+</html>
