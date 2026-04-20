@@ -1,0 +1,27 @@
+/* Global reset and base only */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #6c63ff;
+  --primary-dark: #574fd6;
+  --bg: #0f0f1a;
+  --card-bg: #1a1a2e;
+  --card-border: #2a2a4a;
+  --text: #e0e0f0;
+  --text-muted: #8888aa;
+  --success: #4caf50;
+  --error: #f44336;
+  --warning: #ff9800;
+  --input-bg: #12122a;
+  --shadow: 0 8px 32px rgba(108,99,255,0.15);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0f0f1a;
+  color: #e0e0f0;
+  min-height: 100vh;
+}
+
+a { color: #6c63ff; text-decoration: none; }
+a:hover { text-decoration: underline; }

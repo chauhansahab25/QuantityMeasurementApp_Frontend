@@ -1,0 +1,103 @@
+<app-header [showHistory]="true" [showDashboard]="false"></app-header>
+
+<!-- Guest banner -->
+<div class="guest-banner" *ngIf="isGuest">
+  <span>👤 You're in Guest mode — calculations run locally.
+    <a routerLink="/login">Login</a> to save history.
+  </span>
+</div>
+
+<main class="dashboard">
+
+  <!-- Measurement type selector -->
+  <section class="section">
+    <p class="section-label">Measurement Type</p>
+    <div class="type-selector">
+      <button
+        *ngFor="let t of measurementTypes"
+        class="type-btn"
+        [class.active]="isActiveType(t)"
+        (click)="selectType(t.id)">
+        <span>{{ t.icon }}</span>
+        <span>{{ t.label }}</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Operation selector -->
+  <section class="section">
+    <p class="section-label">Operation</p>
+    <div class="op-selector">
+      <button
+        *ngFor="let o of operations"
+        class="op-btn"
+        [class.active]="isActiveOp(o)"
+        (click)="selectOp(o.id)">
+        {{ o.icon }} {{ o.label }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Calculator card -->
+  <section class="section">
+    <div class="calc-card card">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- First value + unit -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Value</label>
+            <input type="number" formControlName="firstValue" step="any" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label>First Unit</label>
+            <select formControlName="firstUnit">
+              <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Second value + unit (non-convert) -->
+        <ng-container *ngIf="!isSingle">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Second Value</label>
+              <input type="number" formControlName="secondValue" step="any" placeholder="0" />
+            </div>
+            <div class="form-group">
+              <label>Second Unit</label>
+              <select formControlName="secondUnit">
+                <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Target unit (convert only) -->
+        <ng-container *ngIf="isSingle">
+          <div class="form-group">
+            <label>Convert To</label>
+            <select formControlName="targetUnit">
+              <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+            </select>
+          </div>
+        </ng-container>
+
+        <div class="calc-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            <span class="spinner" [class.show]="loading"></span>
+            Calculate
+          </button>
+          <button type="button" class="btn btn-ghost" (click)="resetForm()">Reset</button>
+        </div>
+      </form>
+
+      <!-- Result -->
+      <div class="result-box" [class.show]="showResult" [class.error-result]="resultIsError">
+        <div class="result-label">Result</div>
+        <div class="result-value">{{ resultText }}</div>
+      </div>
+    </div>
+  </section>
+
+</main>

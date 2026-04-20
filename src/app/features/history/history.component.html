@@ -1,0 +1,121 @@
+<app-header [showHistory]="false" [showDashboard]="true"></app-header>
+
+<!-- Guest notice -->
+<div class="guest-banner" *ngIf="isGuest">
+  <span>👤 History is only available for logged-in users.
+    <a routerLink="/login">Login</a> to view your history.
+  </span>
+</div>
+
+<main class="history-main" *ngIf="!isGuest">
+
+  <div class="history-header">
+    <div>
+      <h2 class="history-title">📋 Operation History</h2>
+      <span class="total-count" *ngIf="!loading">{{ total }} record{{ total !== 1 ? 's' : '' }}</span>
+    </div>
+    <button class="btn btn-outline danger-btn btn-sm" (click)="clearHistory()">🗑 Clear All</button>
+  </div>
+
+  <!-- Error -->
+  <div class="alert alert-error" [class.show]="errorMsg">{{ errorMsg }}</div>
+
+  <!-- Filters -->
+  <div class="filters card">
+    <div class="filter-row">
+      <div class="form-group">
+        <label>Filter by Operation</label>
+        <select [(ngModel)]="filterOperation">
+          <option value="">All Operations</option>
+          <option value="CONVERT">🔄 Convert</option>
+          <option value="COMPARE">⚖️ Compare</option>
+          <option value="ADD">➕ Add</option>
+          <option value="SUBTRACT">➖ Subtract</option>
+          <option value="DIVIDE">➗ Divide</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Filter by Type</label>
+        <select [(ngModel)]="filterType">
+          <option value="">All Types</option>
+          <option value="LengthUnit">📏 Length</option>
+          <option value="VolumeUnit">🧪 Volume</option>
+          <option value="WeightUnit">⚖️ Weight</option>
+          <option value="TemperatureUnit">🌡️ Temperature</option>
+        </select>
+      </div>
+      <div class="filter-actions">
+        <button class="btn btn-primary btn-sm" (click)="applyFilters()">Apply</button>
+        <button class="btn btn-ghost btn-sm" (click)="resetFilters()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrapper card">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Operation</th>
+          <th>Type</th>
+          <th>Input</th>
+          <th>Result</th>
+          <th>Date &amp; Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="7" class="empty-row">Loading…</td>
+        </tr>
+        <tr *ngIf="!loading && records.length === 0">
+          <td colspan="7" class="empty-row">No records found</td>
+        </tr>
+        <tr *ngFor="let r of records" [class.row-error]="r.isError">
+          <td>{{ r.id }}</td>
+          <td>
+            <span class="badge badge-op">
+              {{ opIcons[r.operation] || '' }} {{ r.operation }}
+            </span>
+          </td>
+          <td>
+            <span class="badge badge-type">
+              {{ typeIcons[r.measurementType] || '' }} {{ r.measurementType }}
+            </span>
+          </td>
+          <td class="input-cell">
+            {{ r.firstValue }} <em>{{ r.firstUnit }}</em>
+            <ng-container *ngIf="r.secondValue">
+              &amp; {{ r.secondValue }} <em>{{ r.secondUnit }}</em>
+            </ng-container>
+          </td>
+          <td [class.text-result]="!r.isError" [class.text-error]="r.isError">
+            <ng-container *ngIf="!r.isError">
+              {{ r.resultString || (r.result + ' ' + getResultUnit(r)) }}
+            </ng-container>
+            <ng-container *ngIf="r.isError">
+              {{ r.errorMessage || 'Error' }}
+            </ng-container>
+          </td>
+          <td>{{ formatDate(r.createdAt) }}</td>
+          <td>
+            <span *ngIf="!r.isError" class="status-ok">✅</span>
+            <span *ngIf="r.isError"  class="status-error">❌</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="goPage(currentPage - 1)" [disabled]="currentPage === 1">← Prev</button>
+    <button
+      *ngFor="let p of getPages()"
+      [class.active]="p === currentPage"
+      (click)="goPage(p)">{{ p }}</button>
+    <button (click)="goPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next →</button>
+  </div>
+
+</main>

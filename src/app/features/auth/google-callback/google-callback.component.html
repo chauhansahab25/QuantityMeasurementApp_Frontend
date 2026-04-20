@@ -1,0 +1,26 @@
+<div class="callback-page">
+  <div class="callback-card">
+    <h2>🔷 Google Authentication</h2>
+
+    <div *ngIf="status === 'loading'" class="status-block">
+      <div class="spinner-lg"></div>
+      <p>Completing authentication...</p>
+    </div>
+
+    <div *ngIf="status === 'success'" class="status-block">
+      <div class="status-success">
+        <strong>Authentication Successful!</strong><br/>
+        Welcome {{ userName }}
+      </div>
+      <p>Redirecting to dashboard...</p>
+    </div>
+
+    <div *ngIf="status === 'error'" class="status-block">
+      <div class="status-error">
+        <strong>Authentication Failed</strong><br/>
+        {{ errorMessage }}
+      </div>
+      <p><a routerLink="/login">← Back to Login</a></p>
+    </div>
+  </div>
+</div>

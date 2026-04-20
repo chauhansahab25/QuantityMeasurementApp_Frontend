@@ -1,0 +1,18 @@
+<header class="header">
+  <div class="header-brand">
+    <span class="header-icon">📐</span>
+    <span class="header-title">Quantity Measurement</span>
+  </div>
+  <div class="header-right">
+    <a *ngIf="showHistory" routerLink="/history" class="btn btn-ghost btn-sm">📋 History</a>
+    <a *ngIf="showDashboard" routerLink="/dashboard" class="btn btn-ghost btn-sm">⬅ Dashboard</a>
+    <span class="user-badge" *ngIf="userLabel">
+      <ng-container *ngIf="userAvatar">
+        <img [src]="userAvatar" alt="Profile" class="user-avatar" />
+      </ng-container>
+      <span class="user-name">{{ userLabel }}</span>
+      <span class="auth-badge" *ngIf="isGoogle">G</span>
+    </span>
+    <button class="btn btn-ghost btn-sm" (click)="logout()">Logout</button>
+  </div>
+</header>

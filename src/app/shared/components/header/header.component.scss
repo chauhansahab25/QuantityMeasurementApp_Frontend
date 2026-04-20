@@ -1,0 +1,37 @@
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px; background: #1a1a2e;
+  border-bottom: 1px solid #2a2a4a;
+  position: sticky; top: 0; z-index: 100;
+}
+
+.header-brand { display: flex; align-items: center; gap: 10px; }
+.header-icon  { font-size: 24px; }
+.header-title {
+  font-size: 18px; font-weight: 700;
+  background: linear-gradient(135deg, #fff, #a89cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+.user-badge {
+  font-size: 13px; color: #8888aa; padding: 6px 12px;
+  background: #1a1a2e; border: 1px solid #2a2a4a;
+  border-radius: 20px; display: flex; align-items: center; gap: 8px;
+}
+
+.user-avatar { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 2px solid #2a2a4a; }
+.user-name   { font-weight: 500; color: #e0e0f0; }
+.auth-badge  { font-size: 10px; background: rgba(66,133,244,0.15); color: #4285f4; padding: 2px 5px; border-radius: 8px; font-weight: 700; letter-spacing: 0.5px; }
+
+.btn { padding: 12px 28px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+.btn-ghost { background: rgba(108,99,255,0.1); color: #e0e0f0; border: 1px solid #2a2a4a; }
+.btn-ghost:hover { background: rgba(108,99,255,0.2); }
+.btn-sm { padding: 8px 16px; font-size: 13px; }
+
+@media (max-width: 600px) {
+  .header { padding: 14px 16px; }
+  .header-title { font-size: 15px; }
+}
