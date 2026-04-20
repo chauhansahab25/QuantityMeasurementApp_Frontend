@@ -3,7 +3,7 @@ services:
   - type: static
     name: quantity-measurement-frontend
     buildCommand: "npm install && npm run build"
-    staticPublishPath: dist/quantity-measurement
+    staticPublishPath: dist/quantity-measurement/browser
     routes:
       - type: rewrite
         source: /*
