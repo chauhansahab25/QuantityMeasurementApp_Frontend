@@ -1,21 +1,11 @@
 services:
-  - type: web
+  - type: static
     name: quantity-measurement-frontend
-    env: static
     buildCommand: "npm install && npm run build"
     staticPublishPath: dist/quantity-measurement
     routes:
-      - type: file
-        source: /assets/**
-        destination: /assets
-      - type: file
-        source: /*.js
-        destination: /
-      - type: file
-        source: /*.css
-        destination: /
       - type: rewrite
-        source: /**
+        source: /*
         destination: /index.html
     envVars:
       - key: NODE_VERSION
