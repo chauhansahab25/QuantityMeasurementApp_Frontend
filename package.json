@@ -4,14 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "./node_modules/.bin/ng build",
+    "build": "npx --yes @angular/cli@16.2.0 build",
     "watch": "npx ng build --watch --configuration development",
     "test": "ng test"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.2.0",
-    "@angular/cli": "^16.2.0",
     "@angular/common": "^16.2.0",
     "@angular/compiler": "^16.2.0",
     "@angular/core": "^16.2.0",
