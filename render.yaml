@@ -1,3 +1,4 @@
+# Angular Static Site Configuration for Render
 services:
   - type: static
     name: quantity-measurement-frontend
